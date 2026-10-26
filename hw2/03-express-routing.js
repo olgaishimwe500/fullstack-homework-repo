@@ -21,11 +21,6 @@ app.get('/', (req, res) => {
 });
 
 // Add your code here
-app.get('/welcome', (req,res) => {
-  res.status(200);
-  res.set({'Content-Type': 'text/html'});
-  res.end('<h>Welcome, explore more</h1>');
-});
 
 app.get('/welcome', (req,res) => {
   res.status(200);
@@ -45,7 +40,7 @@ app.get('/cache', (req,res) => {
   res.set({'Content-Type': 'text/html', 'Cache-Control': 'max-age=86400'});
   res.end('this resource was cached');
 });
-app.use((req,res) => {
+app.get((req,res) => {
   res.status(404);
   res.set({'Content-Type': 'text/html'});
   res.cookie('hello', 'world');
