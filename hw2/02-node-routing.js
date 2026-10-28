@@ -14,38 +14,45 @@ const port = process.env.PORT || 5001;
 const server = http.createServer((req, res) => {
   const routes = ['welcome','redirect','redirected','cache','cookie','other'];
 
-  if(req.url== '/')
+  switch(req.url)
   {
-    let result = '';
-    routes.forEach((route) =>{
-      result += `<li><a href="/${route}">${route}</a></li>`;
-    });
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(`<h1>Node.js Routing Exercise</h1><ul>${result}</ul>`);
-  }
-  else if (req.url === '/welcome'){
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>Welcome, explore more.</h1>');
-  }
-  else if (req.url === '/redirect'){
-    res.writeHead(302, {Location:'/redirected' });
-    res.end();
-  }
-  else if (req.url == '/redirected'){
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>You have been redirected.</h1>');
-  }
-  else if (req.url == '/cache'){
-    res.writeHead(200, { 'Content-Type': 'text/html','Cache-Control': 'max-age=86400' });
-    res.end('<p>this resource was cached</p>');
-  }
-  else if(req.url == '/cookie'){
-    res.writeHead(200, { 'Content-Type': 'text/html', 'Set-Cookies': 'hello=world', });
-    res.end('cookies... Yummm');
-  }
-  else{
-    res.writeHead(404, {'Content-Type': 'text/html'});
-    res.end('<h1>404 - Page not founD</h1>');
+    case '/':
+
+      let result = '';
+      routes.forEach((route) =>{
+        result += `<li><a href="/${route}">${route}</a></li>`;
+      });
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(`<h1>Node.js Routing Exercise</h1><ul>${result}</ul>`);
+      break;
+    
+    case '/welcome':
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('<h1>Welcome, explore more.</h1>');
+      break;
+    
+    case '/redirect':
+      res.writeHead(302, {Location:'/redirected' });
+      res.end();
+      break;
+    case '/redirected':
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('<h1>You have been redirected.</h1>');
+      break;
+    
+    case '/cache':
+      res.writeHead(200, { 'Content-Type': 'text/html','Cache-Control': 'max-age=86400' });
+      res.end('<p>this resource was cached</p>');
+      breask;
+
+    case '/cookie':
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Set-Cookie': 'hello=world', });
+      res.end('cookies... Yummm');
+      break;
+
+    default:
+      res.writeHead(404, {'Content-Type': 'text/html'});
+      res.end('<h1>404 - Page not founD</h1>');
   }
 });
 

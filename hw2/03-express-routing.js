@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -12,51 +12,61 @@ const port = process.env.PORT || 5001;
 
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
-const routes = ['welcome','redirect','redirected','cache','cookie','other'];
+const routes = [
+  "welcome",
+  "redirect",
+  "redirected",
+  "cache",
+  "cookie",
+  "other",
+];
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
+  const list = routes
+    .map((route) => `<li><a href="/${route}">${route}</a></li>`)
+    .join("");
   res.status(200);
-  res.set({ 'Content-Type': 'text/html' });
-  res.send('Express Routing Exercise');
+  res.set({ "Content-Type": "text/html" });
+  res.send(`<h1>Express Routing Exercise</h1><ul>${list}</ul>`);
 });
 
 // Add your code here
 
-app.get('/welcome', (req,res) => {
+app.get("/welcome", (req, res) => {
   res.status(200);
-  res.set({'Content-Type': 'text/html'});
-  res.end('<h>Welcome, explore more</h1>');
+  res.set({ "Content-Type": "text/html" });
+  res.end("<h1>Welcome, explore more</h1>");
 });
-app.get('/redirect', (req,res) => {
-  res.redirect(302, '/redirected');
+app.get("/redirect", (req, res) => {
+  res.redirect(302, "/redirected");
 });
-app.get('/redirected', (req,res) => {
+app.get("/redirected", (req, res) => {
   res.status(200);
-  res.set({'Content-Type': 'text/html'});
-  res.end('<h>You have been redirected.</h1>');
+  res.set({ "Content-Type": "text/html" });
+  res.end("<h1>You have been redirected.</h1>");
 });
-app.get('/cache', (req,res) => {
+app.get("/cache", (req, res) => {
   res.status(200);
-  res.set({'Content-Type': 'text/html', 'Cache-Control': 'max-age=86400'});
-  res.end('this resource was cached');
+  res.set({ "Content-Type": "text/html", "Cache-Control": "max-age=86400" });
+  res.end("this resource was cached");
 });
-app.get((req,res) => {
+app.get("/cookie", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/plain" });
+  res.cookie("hello", "world");
+  res.end("cookies... yummm");
+});
+app.use((req, res) => {
   res.status(404);
-  res.set({'Content-Type': 'text/html'});
-  res.cookie('hello', 'world');
-  res.end('cookies... yummm');
-});
-app.use((req,res) => {
-  res.status(404);
-  res.set({'Content-Type': 'text/html'});
-  res.end('404 - page not found');
+  res.set({ "Content-Type": "text/html" });
+  res.end("404 - page not found");
 });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-//when running 
+//when running
 //http://localhost:5002/welcome
 //http://localhost:5002/cache
 // /whichever page you are looking for

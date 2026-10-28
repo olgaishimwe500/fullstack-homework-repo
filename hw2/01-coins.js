@@ -3,10 +3,10 @@
 // Add your function here
 function calculateChange(amount) {
   if (typeof amount !== "number" || Number.isNaN(amount) || amount < 0) {
-    return "Invalide input, enter an non-negative amount";
+    return `$${amount} ==> Invalide input, enter an non-negative amount`;
   }
   if (amount > 100) {
-    return "The number entered is too large";
+    return `$${amount} ==> The number entered is too large`;
   }
   let cents = Math.round(amount * 100);
   const coins = [
