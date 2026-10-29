@@ -22,3 +22,13 @@ Input: nums = [3,3], target = 6
 Output: [0,1]
 
 **/
+const twosum = (nums, target) => {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[i + 1] === target) return [i, j];
+    }
+  }
+};
+console.log(twosum([2, 7, 11, 15], 9));
+console.log(twosum([1,3,5,2,4],8));
+console.log(twosum([1,4,6,8,2,7],5));
