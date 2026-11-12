@@ -1,10 +1,10 @@
-import{ BrowserRouter, Routes, Route, Navigate, Link} from "react-router-dom";
+import{ BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Characters from './pages/Characters';
 import Species from './pages/Species';
 import Locations from './pages/Locations';
 
-export default function App(){
+export default function App() {
     return (
         <BrowserRouter>
             <nav>

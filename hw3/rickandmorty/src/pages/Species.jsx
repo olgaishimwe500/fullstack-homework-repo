@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-const ids = Array.from({ length: 100 }, (_, i) => i + 1).join(',');
+// const ids = Array.from({ length: 100 }, (_, i) => i + 1).join(',');
+const getJson = (url) =>
+  fetch(url).then((res) => {
+    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+    return res.json();
+  });
+
 
 export default function Species() {
   const [characters, setCharacters] = useState([]);
@@ -8,12 +14,19 @@ export default function Species() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/${ids}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-        return res.json();
+    const baseUrl = 'https://rickandmortyapi.com/api/character';
+    
+    getJson(baseUrl)
+      .then((firstPage) => {
+        const otherPageNum = Array.from(
+          { lenght: firstPage.info.pages - 1 },
+          (_, i) => i + 2,
+        );
+        return Promise.all(
+          otherPageNum.map((page) => getJson(`${baseUrl}?page=${page}`)),
+        ).then((otherPages) => [firstPage, ...otherPages]);
       })
-      .then((data) => setCharacters(data))
+      .then((pages) => setCharacters(pages.flatMap((page) => page.results)))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
@@ -37,7 +50,7 @@ export default function Species() {
   return (
     <div>
       <h1>Characters by Species</h1>
-      <p>Based on the first 100 characters.</p>
+      <p>Based on all {characters.length} characters.</p>
       {sortedSpecies.map(([species, names]) => (
         <div key={species} className="card">
           <h2>

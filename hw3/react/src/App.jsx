@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Square({value, onSquareClick}) {
+const Square = function Square({value, onSquareClick}) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
@@ -9,7 +9,7 @@ function Square({value, onSquareClick}) {
   );
 }
 
-function Board({xIsNext, squares, onPlay}) {
+const Board = function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i){
     if(calculateWinner(squares) || squares[i]){
       return;
@@ -19,7 +19,7 @@ function Board({xIsNext, squares, onPlay}) {
       nextSquares[i] = "X";
     }
     else{
-      nextSquares[i]= "O";
+      nextSquares[i] = "O";
     }
     onPlay(nextSquares);
   }
@@ -27,6 +27,9 @@ function Board({xIsNext, squares, onPlay}) {
   let status;
   if(winner){
     status = "Winner: " + winner;
+  }
+  else if(!squares.includes(null)){
+    status = "No Winner";
   }
   else{
     status= "Next player: " +(xIsNext ? "X" : "O");
@@ -65,7 +68,7 @@ export default function Game() {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
-  function jumTo(nextMove){
+  function jumpTo(nextMove){
     setCurrentMove(nextMove);
   }
 
