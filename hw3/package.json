@@ -1,0 +1,21 @@
+{
+  "name": "fullstack-homework",
+  "version": "1.0.0",
+  "description": "In this repository, you will find starter files for the homework assignments for CS 465P/565: Full Stack Web Development. Check Canvas for more details on each assignment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olgaishimwe500/fullstack-homework-repo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/olgaishimwe500/fullstack-homework-repo/issues"
+  },
+  "homepage": "https://github.com/olgaishimwe500/fullstack-homework-repo#readme"
+}
